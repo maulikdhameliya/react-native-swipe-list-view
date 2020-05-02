@@ -54,6 +54,7 @@ class SwipeRow extends Component {
                 ? '100%'
                 : 0,
             hiddenWidth: this.props.disableHiddenLayoutCalculation ? '100%' : 0,
+            disableSwipe: false,
         };
         this._translateX = new Animated.Value(0);
 
@@ -270,12 +271,15 @@ class SwipeRow extends Component {
 
     handleOnMoveShouldSetPanResponder(e, gs) {
         const { dx } = gs;
+        if (this.state.disableSwipe) {
+            return;
+        }
         return Math.abs(dx) > this.props.directionalDistanceChangeThreshold;
     }
 
     handlePanResponderMove(e, gestureState) {
         /* If the view is force closing, then ignore Moves. Return */
-        if (this.isForceClosing) {
+        if (this.isForceClosing || this.state.disableSwipe) {
             return;
         }
 
@@ -363,6 +367,9 @@ class SwipeRow extends Component {
             setTimeout(() => {
                 this.isForceClosing = false;
             }, 500); // 500 is the default Animated.spring's duration used in manuallySwipeRow
+        }
+        if (this.state.disableSwipe) {
+            return;
         }
         // decide how much the velocity will affect the final position that the list item settles in.
         const swipeToOpenVelocityContribution = this.props
@@ -535,6 +542,10 @@ class SwipeRow extends Component {
         this.swipeInitialX = null;
         this.horizontalSwipeGestureBegan = false;
     }
+
+    disableSwipeRow = (value) => {
+        this.setState({ disableSwipe: value })
+    };
 
     manuallySwipeRow(toValue, onAnimationEnd) {
         Animated.spring(this._translateX, {
