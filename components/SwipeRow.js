@@ -673,7 +673,7 @@ class SwipeRow extends Component {
                     style={[
                         styles.hidden,
                         {
-                            height: this.state.hiddenHeight,
+                            // height: this.state.hiddenHeight,
                             width: this.state.hiddenWidth,
                         },
                     ]}
