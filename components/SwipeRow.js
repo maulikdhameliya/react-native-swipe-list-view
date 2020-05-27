@@ -670,13 +670,15 @@ class SwipeRow extends Component {
                 style={this.props.style ? this.props.style : styles.container}
             >
                 <View
-                    style={[
-                        styles.hidden,
-                        {
-                            // height: this.state.hiddenHeight,
-                            width: this.state.hiddenWidth,
-                        },
-                    ]}
+                  style={[
+                      styles.hidden,
+                      {
+                          width: this.state.hiddenWidth,
+                      },
+                      this.props.addHeight ? {
+                          height: this.state.hiddenHeight,
+                      } : {}
+                  ]}
                 >
                     {React.cloneElement(this.props.children[0], {
                         ...this.props.children[0].props,
@@ -804,6 +806,7 @@ SwipeRow.propTypes = {
      * Enable hidden row onLayout calculations to run always
      */
     recalculateHiddenLayout: PropTypes.bool,
+    addHeight: PropTypes.bool,
     /**
      * Disable hidden row onLayout calculations
      */
@@ -931,6 +934,7 @@ SwipeRow.defaultProps = {
     disableLeftSwipe: false,
     disableRightSwipe: false,
     recalculateHiddenLayout: false,
+    addHeight: false,
     disableHiddenLayoutCalculation: false,
     preview: false,
     previewDuration: 300,

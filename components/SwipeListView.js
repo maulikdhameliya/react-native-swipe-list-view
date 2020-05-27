@@ -309,6 +309,7 @@ class SwipeListView extends PureComponent {
                     swipeToClosePercent={this.props.swipeToClosePercent}
                     item={item} // used for should item update comparisons
                     useNativeDriver={this.props.useNativeDriver}
+                    addHeight={this.props.addHeight}
                 >
                     {HiddenComponent}
                     {VisibleComponent}
