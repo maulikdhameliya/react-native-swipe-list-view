@@ -46,6 +46,7 @@ class SwipeListView extends PureComponent {
     }
 
     setScrollEnabled(enable) {
+        this.props.onScrollEnabled && this.props.onScrollEnabled(enable);
         if (this.props.scrollEnabled === false) {
             return;
         }
@@ -58,7 +59,6 @@ class SwipeListView extends PureComponent {
             scrollResponder.setNativeProps &&
                 scrollResponder.setNativeProps({ scrollEnabled: enable });
         }
-        this.props.onScrollEnabled && this.props.onScrollEnabled(enable);
     }
 
     safeCloseOpenRow() {
